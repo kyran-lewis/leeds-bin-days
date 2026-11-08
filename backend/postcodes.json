@@ -1,0 +1,118 @@
+{
+  "ls132dy": [
+    {
+      "uprn": "72009373",
+      "houseNumber": "1",
+      "street": "aston drive",
+      "city": "leeds",
+      "county": "west yorkshire"
+    },
+    {
+      "uprn": "72009374",
+      "houseNumber": "2",
+      "street": "aston drive",
+      "city": "leeds",
+      "county": "west yorkshire"
+    },
+    {
+      "uprn": "72009375",
+      "houseNumber": "3",
+      "street": "aston drive",
+      "city": "leeds",
+      "county": "west yorkshire"
+    },
+    {
+      "uprn": "72009378",
+      "houseNumber": "4",
+      "street": "aston drive",
+      "city": "leeds",
+      "county": "west yorkshire"
+    },
+    {
+      "uprn": "72009379",
+      "houseNumber": "5",
+      "street": "aston drive",
+      "city": "leeds",
+      "county": "west yorkshire"
+    },
+    {
+      "uprn": "72009380",
+      "houseNumber": "6",
+      "street": "aston drive",
+      "city": "leeds",
+      "county": "west yorkshire"
+    },
+    {
+      "uprn": "72009381",
+      "houseNumber": "7",
+      "street": "aston drive",
+      "city": "leeds",
+      "county": "west yorkshire"
+    },
+    {
+      "uprn": "72009382",
+      "houseNumber": "8",
+      "street": "aston drive",
+      "city": "leeds",
+      "county": "west yorkshire"
+    },
+    {
+      "uprn": "72009383",
+      "houseNumber": "9",
+      "street": "aston drive",
+      "city": "leeds",
+      "county": "west yorkshire"
+    },
+    {
+      "uprn": "72009384",
+      "houseNumber": "10",
+      "street": "aston drive",
+      "city": "leeds",
+      "county": "west yorkshire"
+    },
+    {
+      "uprn": "72009385",
+      "houseNumber": "11",
+      "street": "aston drive",
+      "city": "leeds",
+      "county": "west yorkshire"
+    }
+  ],
+  "ls132dx": [
+    {
+      "uprn": "72535427",
+      "houseNumber": "1",
+      "street": "kings approach",
+      "city": "leeds",
+      "county": "west yorkshire"
+    },
+    {
+      "uprn": "72535428",
+      "houseNumber": "2",
+      "street": "kings approach",
+      "city": "leeds",
+      "county": "west yorkshire"
+    },
+    {
+      "uprn": "72535429",
+      "houseNumber": "3",
+      "street": "kings approach",
+      "city": "leeds",
+      "county": "west yorkshire"
+    },
+    {
+      "uprn": "72535430",
+      "houseNumber": "4",
+      "street": "kings approach",
+      "city": "leeds",
+      "county": "west yorkshire"
+    },
+    {
+      "uprn": "72535431",
+      "houseNumber": "5",
+      "street": "kings approach",
+      "city": "leeds",
+      "county": "west yorkshire"
+    }
+  ]
+}
