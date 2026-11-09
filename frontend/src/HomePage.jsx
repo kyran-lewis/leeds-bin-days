@@ -6,10 +6,18 @@ import BlueBin from "./assets/blue-bin.jpeg";
 import "./styles/home-page.css";
 import TakenOutModal from "./TakenOutModal";
 import CollectedModal from "./CollectedModal";
+import axios from "axios";
 
 function HomePage() {
   const name = "Kyran";
   const address = "14 Nunthorpe Road, LS13 1JS";
+
+  const [binDays, setBinDays] = useState([]);
+
+  const getBinDays = () => {
+    const { data } = axios.get("http://localhost:3000/bins");
+    setBinDays("");
+  };
 
   const bins = [
     {
