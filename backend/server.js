@@ -1,27 +1,36 @@
 import express from "express";
 import cors from "cors";
-import { getBinDays } from "./utils";
-import postcodes from "./postcodes.json";
+import { getBinDays } from "./utils.js";
+import postcodes from "./postcodes.json" with { type: "json" };
 const app = express();
 
 app.use(cors()); // allow your frontend to talk to this API
 app.use(express.json());
+
+app.get("/", (req, res) => {
+  res.json({ message: "Welcome to the Binny API" });
+});
 
 app.get("/addresses", (req, res) => {
   const { postcode } = req.query;
 
   if (!postcode) {
     return res.status(400).json({
-      error: "Missing required query parameter: postcode",
+      message: "Missing required query parameter: postcode",
     });
   }
 
-  const addresses = postcodes[postcode];
+  // TODO: add postcode regex validation
 
-  return res.status(200).json({
-    success: true,
-    data: addresses,
-  });
+  const addresses = postcodes[postcode] ?? [];
+
+  if (addresses.length <= 0) {
+    return res.status(404).json({
+      message: "No addresses found for this postcode",
+    });
+  }
+
+  return res.status(200).json(addresses);
 });
 
 // GET /api/bins?postcode=LS11UR&house=10
@@ -71,7 +80,7 @@ app.get("/addresses", (req, res) => {
 //   }
 // });
 
-const PORT = process.env.PORT || 3000;
+const PORT = 3000;
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });

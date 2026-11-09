@@ -57,5 +57,3 @@ export async function getBinDays(postcode, houseNumber, uprn) {
     throw new Error(`Execution error: ${error.message}`);
   }
 }
-
-console.log(await getBinDays("LS131JS", "14", "72146423"));
