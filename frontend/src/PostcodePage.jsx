@@ -1,10 +1,13 @@
 import axios from "axios";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 function PostcodePage() {
   const [postcode, setPostcode] = useState("");
   const [addresses, setAddresses] = useState([]);
   const [errorMessage, setErrorMessage] = useState("");
+
+  const navigate = useNavigate();
 
   function capitaliseFirstLetter(string) {
     let newString = "";
@@ -17,7 +20,7 @@ function PostcodePage() {
       newString += word[0].toUpperCase() + word.slice(1) + " ";
     }
 
-    return newString;
+    return newString.substring(0, newString.length - 1);
   }
 
   const getAddresses = async (e) => {
@@ -55,6 +58,26 @@ function PostcodePage() {
     }
   };
 
+  const handleSelect = (address) => {
+    const fullAddress =
+      address.houseNumber +
+      " " +
+      capitaliseFirstLetter(address.street) +
+      ", " +
+      capitaliseFirstLetter(address.city) +
+      ", " +
+      capitaliseFirstLetter(address.county) +
+      ", " +
+      postcode;
+
+    sessionStorage.setItem("fullAddress", fullAddress);
+    sessionStorage.setItem("postcode", postcode);
+    sessionStorage.setItem("houseNumber", address.houseNumber);
+    sessionStorage.setItem("uprn", address.uprn);
+
+    navigate("/home");
+  };
+
   return addresses.length <= 0 ? (
     <>
       <p>{errorMessage}</p>
@@ -74,9 +97,9 @@ function PostcodePage() {
       <h1>Addresses:</h1>
       {addresses.map((address) => (
         <div>
-          <p key={address.uprn}>
-            {address.houseNumber} {capitaliseFirstLetter(address.street)}{" "}
-            {capitaliseFirstLetter(address.city)},
+          <p key={address.uprn} onClick={(e) => handleSelect(address)}>
+            {address.houseNumber} {capitaliseFirstLetter(address.street)},{" "}
+            {capitaliseFirstLetter(address.city)},{" "}
             {capitaliseFirstLetter(address.county)}, {postcode}
           </p>
         </div>
