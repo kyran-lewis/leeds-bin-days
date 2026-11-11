@@ -1,6 +1,8 @@
 import axios from "axios";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { capitaliseFirstLetter } from "./utils";
+import "./styles/selector.css";
 
 function PostcodePage() {
   const [postcode, setPostcode] = useState("");
@@ -9,19 +11,19 @@ function PostcodePage() {
 
   const navigate = useNavigate();
 
-  function capitaliseFirstLetter(string) {
-    let newString = "";
+  // function capitaliseFirstLetter(string) {
+  //   let newString = "";
 
-    if (!string.includes(" ")) {
-      return string[0].toUpperCase() + string.slice(1);
-    }
+  //   if (!string.includes(" ")) {
+  //     return string[0].toUpperCase() + string.slice(1);
+  //   }
 
-    for (const word of string.split(" ")) {
-      newString += word[0].toUpperCase() + word.slice(1) + " ";
-    }
+  //   for (const word of string.split(" ")) {
+  //     newString += word[0].toUpperCase() + word.slice(1) + " ";
+  //   }
 
-    return newString.substring(0, newString.length - 1);
-  }
+  //   return newString.substring(0, newString.length - 1);
+  // }
 
   const getAddresses = async (e) => {
     e.preventDefault();
@@ -58,6 +60,16 @@ function PostcodePage() {
     }
   };
 
+  const formatPostcode = (postcode) => {
+    const normalisedPostcode = postcode.toUpperCase().replace(" ", "");
+
+    return (
+      normalisedPostcode.substring(0, normalisedPostcode.length - 3) +
+      " " +
+      normalisedPostcode.substring(normalisedPostcode.length - 3)
+    );
+  };
+
   const handleSelect = (address) => {
     const fullAddress =
       address.houseNumber +
@@ -68,43 +80,48 @@ function PostcodePage() {
       ", " +
       capitaliseFirstLetter(address.county) +
       ", " +
-      postcode;
+      formatPostcode(postcode);
 
     sessionStorage.setItem("fullAddress", fullAddress);
-    sessionStorage.setItem("postcode", postcode);
+    sessionStorage.setItem("postcode", formatPostcode(postcode));
     sessionStorage.setItem("houseNumber", address.houseNumber);
     sessionStorage.setItem("uprn", address.uprn);
 
     navigate("/home");
   };
 
-  return addresses.length <= 0 ? (
-    <>
-      <p>{errorMessage}</p>
-      <form onSubmit={getAddresses}>
-        <label htmlFor="postcode">Please enter your postcode:</label>
-        <input
-          name="postcode"
-          type="text"
-          value={postcode}
-          onChange={(e) => setPostcode(e.target.value)}
-        />
-        <button type="submit">Submit</button>
-      </form>
-    </>
-  ) : (
-    <>
-      <h1>Addresses:</h1>
-      {addresses.map((address) => (
-        <div>
-          <p key={address.uprn} onClick={(e) => handleSelect(address)}>
-            {address.houseNumber} {capitaliseFirstLetter(address.street)},{" "}
-            {capitaliseFirstLetter(address.city)},{" "}
-            {capitaliseFirstLetter(address.county)}, {postcode}
-          </p>
+  return (
+    <main className="selector">
+      {addresses.length <= 0 ? (
+        <div className="postcode">
+          <p>{errorMessage}</p>
+          <form onSubmit={getAddresses}>
+            <label htmlFor="postcode">Please enter your postcode:</label>
+            <input
+              name="postcode"
+              type="text"
+              value={postcode}
+              onChange={(e) => setPostcode(e.target.value)}
+            />
+            <button type="submit">Submit</button>
+          </form>
         </div>
-      ))}
-    </>
+      ) : (
+        <div>
+          <h1>Addresses:</h1>
+          <div className="selector address-list">
+            {addresses.map((address) => (
+              <p key={address.uprn} onClick={(e) => handleSelect(address)}>
+                {address.houseNumber} {capitaliseFirstLetter(address.street)},{" "}
+                {capitaliseFirstLetter(address.city)},{" "}
+                {capitaliseFirstLetter(address.county)},{" "}
+                {formatPostcode(postcode)}
+              </p>
+            ))}
+          </div>
+        </div>
+      )}
+    </main>
   );
 }
 
